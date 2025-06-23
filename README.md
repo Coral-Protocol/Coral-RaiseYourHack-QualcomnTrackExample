@@ -126,7 +126,7 @@ uv run langchain-monzo-agent.py.
 
 </details>
 
-### Step 5: Example
+## Example
 
 <details>
 <summary>Click to see example</summary>
