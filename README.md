@@ -77,7 +77,7 @@ uv sync
 
 #### Terminal 2: Restaurant Voice Agent  
 ```bash
-cd Restaurant-Voice-Agent
+cd Coral-Monzo-Agent
 uv sync
 ```
 
