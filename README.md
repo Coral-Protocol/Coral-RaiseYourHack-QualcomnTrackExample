@@ -5,7 +5,45 @@ This project is a comprehensive personal finance advisor system that combines th
 
 ## 🚀 Quick Start Guide
 
-### Step 1: Setup Coral Server
+### Step 1: Install and Run Ollama (for Local LLM)
+<details>
+
+Monzo Agent uses Ollama to run local LLM. Please make sure you have Ollama installed and the desired model downloaded before running the agent.
+
+**1. Install Ollama**
+
+- **Linux/macOS:**
+  Follow the official instructions: [https://ollama.com/download](https://ollama.com/download)
+  Or run:
+  ```bash
+  curl -fsSL https://ollama.com/install.sh | sh
+  ```
+- **Windows:**
+  Download the installer from [Ollama's website](https://ollama.com/download).
+
+**2. Download Local model**
+
+```bash
+ollama pull qwen3:latest
+```
+
+**3. Start Ollama Service**
+
+Ollama usually starts automatically. If not, start it manually:
+```bash
+ollama serve
+```
+
+**4. Verify the model is running**
+
+```bash
+ollama list
+```
+Make sure no errors occur and Ollama is running at `http://localhost:11434`.
+
+</details>
+
+### Step 2: Setup Coral Server
 
 <details>
 <summary>Click to expand setup instructions</summary>
@@ -23,9 +61,9 @@ cd coral-server
 
 </details>
 
-### Step 2: Environment Setup
+### Step 3: Environment Setup
 
-You'll need to set up **three separate terminals** for each component:
+You'll need to set up **two separate terminals** for each component:
 
 <details>
 <summary>Click to see setup instructions for each component</summary>
@@ -44,7 +82,7 @@ uv sync
 
 </details>
 
-### Step 3: Environment Configuration
+### Step 4: Environment Configuration
 
 <details>
 <summary>Click to see configuration instructions</summary>
@@ -67,7 +105,7 @@ cp -r env_example .env
 
 </details>
 
-### Step 4: Running the Application
+### Step 5: Running the Application
 
 <details>
 <summary>Click to see running instructions</summary>
@@ -85,6 +123,47 @@ uv run 0-langchain-interface.py
 cd Coral-Monzo-Agent
 uv run langchain-monzo-agent.py.
 ```
+
+</details>
+
+### Step 5: Example
+
+<details>
+<summary>Click to see example</summary>
+
+```bash
+# Input:
+Question: Help me check my transections of monzo for the last 2 months and give me some personal finance advice.
+
+# Output:
+Answer: Here is a summary of your Monzo transactions for the past 2 months:
+- May 1: -£22.00 (University, bills)
+- May 14: -£120.00 (Person A, general)
+- May 14: -£20.81 (Mobile Provider, bills)
+- May 18: -£16.00 (Person A, general)
+- May 19: +£9.00 (Person B, income)
+- June 2: -£22.00 (University, bills)
+- June 6: +£6.66 (From Person C, income)
+- June 12: -£20.81 (Mobile Provider, bills)
+- June 17: +£100.00 (From Person C, income)
+
+Notable spending patterns:
+- Regular bills to University and Mobile Provider.
+- Significant general spending to "Person A."
+- Income from Person B and Person C.
+
+Personalized financial advice:
+1. **Track Recurring Bills:** Your regular payments to University and Mobile Provider are predictable. Consider setting up automated budgeting for these to ensure you always have funds allocated.
+2. **Review Large Expenses:** The £120 payment to "Person A" stands out. Review such large transactions to ensure they are necessary and look for ways to reduce or avoid them if possible.
+3. **Increase Savings:** Try to set aside a portion of your income (even small amounts) right after you receive it. Automating savings can help build a financial cushion.
+4. **Monitor Cash Flow:** Your income is irregular. Consider ways to stabilize your income or reduce discretionary spending during lower-income months.
+5. **Analyze General Spending:** Categorize your general expenses to identify areas where you can cut back.
+
+Would you like more detailed budgeting tips or help setting up a savings plan?
+
+Is there anything else I can help you with?
+```
+
 
 </details>
 
