@@ -99,7 +99,7 @@ cp -r .env_sample .env
 #### For Restaurant Voice Agent
 Create a `.env` file in the `Restaurant-Voice-Agent` directory based on the `.env.example` file:
 ```bash
-cd Restaurant-Voice-Agent  
+cd Coral-Monzo-Agent
 cp -r env_example .env
 # Edit .env with your specific configuration
 ```
