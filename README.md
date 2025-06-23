@@ -1,7 +1,6 @@
-# Restaurant Agentic System Webapp
+# Personal Finance Advisor
 
-This project is a comprehensive restaurant voice agent system that combines [Interface Agent](https://github.com/Coral-Protocol/Coral-Interface-Agent) and [Restaurant Voice Agent](https://github.com/Coral-Protocol/Restaurant-Voice-Agent) to connect via coral protocol to provide an intelligent conversational experience for restaurant interactions. The agents used in this project are part of the [Awesome Agents for Multi-Agent Systems](https://github.com/Coral-Protocol/awesome-agents-for-multi-agent-systems) collection.
-
+This project is a comprehensive personal finance advisor system that combines the [Interface Agent](https://github.com/Coral-Protocol/Coral-Interface-Agent) and [Monzo Agent](https://github.com/Coral-Protocol/Coral-Monzo-Agent) to provide secure, intelligent, and privacy-preserving financial management through natural language interaction. The Monzo Agent enables users to safely access and analyze their Monzo banking data using a local LLM, ensuring sensitive information never leaves their device. By integrating with Monzo’s official API and customized toolkits, the system supports conversational account balance checks, transaction history queries, and personalized financial advice. All agents in this project are part of the [Awesome Agents for Multi-Agent Systems](https://github.com/Coral-Protocol/awesome-agents-for-multi-agent-systems) collection.
 
 
 ## 🚀 Quick Start Guide
@@ -43,12 +42,6 @@ cd Restaurant-Voice-Agent
 uv sync
 ```
 
-#### Terminal 3: UI Frontend
-```bash
-cd UI
-npm install
-```
-
 </details>
 
 ### Step 3: Environment Configuration
@@ -68,27 +61,8 @@ cp -r .env_sample .env
 Create a `.env` file in the `Restaurant-Voice-Agent` directory based on the `.env.example` file:
 ```bash
 cd Restaurant-Voice-Agent  
-cp -r .env.example .env
+cp -r env_example .env
 # Edit .env with your specific configuration
-```
-
-#### For UI Frontend
-Create a `.env.local` file in the `UI` directory:
-```bash
-cd UI
-
-# Create .env.local with these variables:
-
-# LiveKit Configuration
-LIVEKIT_API_KEY=your_livekit_api_key_here  ([Get LiveKit API Key](https://cloud.livekit.io/))
-LIVEKIT_API_SECRET=your_livekit_api_secret_here  ([Get LiveKit API Secret Key](https://cloud.livekit.io/))
-LIVEKIT_URL=your_livekit_url_here  ([Get LiveKit Url](https://cloud.livekit.io/))
-
-# API Endpoint Configuration (for Interface Agent)
-NEXT_PUBLIC_CONN_DETAILS_ENDPOINT=/api/connection-details
-
-# Interface Agent API Endpoint (default: http://localhost:8000)
-NEXT_PUBLIC_INTERFACE_AGENT_API_ENDPOINT=http://localhost:8000
 ```
 
 </details>
@@ -108,30 +82,9 @@ uv run 0-langchain-interface.py
 
 #### Terminal 2: Start Restaurant Voice Agent
 ```bash
-cd Restaurant-Voice-Agent
-uv run main.py dev
+cd Coral-Monzo-Agent
+uv run langchain-monzo-agent.py.
 ```
-
-#### Terminal 3: Start UI Frontend
-```bash
-cd UI
-npm run dev
-```
-
-</details>
-
-## 🎯 Usage
-
-<details>
-<summary>Click to see usage instructions</summary>
-
-1. **Access the Application**: Open your browser and navigate to the UI application (typically `http://localhost:3000`)
-
-2. **Try Now Button**: Click the "Try Now" button to be directed to the main page
-
-3. **Start Conversation**: On the main page, press the "Start Conversation" button for the restaurant agent
-
-4. **Interact**: You can now chat with the agentic system for restaurant-related queries and interactions
 
 </details>
 
@@ -143,20 +96,9 @@ npm run dev
 
 For more detailed information about the individual components:
 
-- **Restaurant Voice Agent**: [https://github.com/Coral-Protocol/Restaurant-Voice-Agent](https://github.com/Coral-Protocol/Restaurant-Voice-Agent)
-- **Voice Interface Agent**: [https://github.com/Coral-Protocol/Voice-Interface-Agent](https://github.com/Coral-Protocol/Voice-Interface-Agent)
+- **Interface Agent**: [https://github.com/Coral-Protocol/Coral-Interface-Agent](https://github.com/Coral-Protocol/Coral-Interface-Agent)
+- **Monzo Agent**: [https://github.com/Coral-Protocol/Coral-Monzo-Agent](https://github.com/Coral-Protocol/Coral-Monzo-Agent)
 - **Coral Server**: [https://github.com/Coral-Protocol/coral-server](https://github.com/Coral-Protocol/coral-server)
 - **Awesome Agents Collection for Multi-Agent-System**: [https://github.com/Coral-Protocol/awesome-agents-for-multi-agent-systems](https://github.com/Coral-Protocol/awesome-agents-for-multi-agent-systems)
 
 </details>
-
-## 📋 Prerequisites
-
-Before setting up this project, ensure you have the following installed:
-
-- **Python 3.8+** with `uv` package manager
-- **Node.js 18+** with npm
-- **Git** for cloning repositories
-
-## Check the Demo video:
-[Demo](https://drive.google.com/file/d/1LtUfTUzV9MPEPY7b4alElDiJoml7E089/view)
