@@ -7,6 +7,7 @@ This project is a comprehensive personal finance advisor system that combines th
 
 ### Step 1: Install and Run Ollama (for Local LLM)
 <details>
+<summary>Click to expand Ollama instructions</summary>
 
 Monzo Agent uses Ollama to run local LLM. Please make sure you have Ollama installed and the desired model downloaded before running the agent.
 
