@@ -101,7 +101,7 @@ cp -r .env_sample .env
 #### For Monzo Agent
 Get the `MONZO_ACCESS_TOKEN` and `MONZO_ACCOUNT_ID`:[Monzo Developer Portal](https://developers.monzo.com/).
 
-Create a `.env` file in the `Restaurant-Voice-Agent` directory based on the `.env.example` file:
+Create a `.env` file in the `Coral-Monzo-Agent` directory based on the `.env.example` file:
 ```bash
 cd Coral-Monzo-Agent
 cp -r env_example .env
