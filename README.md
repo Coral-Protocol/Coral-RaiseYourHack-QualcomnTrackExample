@@ -89,6 +89,8 @@ uv sync
 <summary>Click to see configuration instructions</summary>
 
 #### For Coral Interface Agent
+Get the API Key:
+[OpenAI](https://platform.openai.com/api-keys)
 Create a `.env` file in the `Coral-Interface-Agent` directory based on the `.env_sample` file:
 ```bash
 cd Coral-Interface-Agent
@@ -96,7 +98,9 @@ cp -r .env_sample .env
 # Edit .env with your specific configuration
 ```
 
-#### For Restaurant Voice Agent
+#### For Monzo Agent
+Get the `MONZO_ACCESS_TOKEN` and `MONZO_ACCOUNT_ID`:
+[Monzo Developer Portal](https://developers.monzo.com/)
 Create a `.env` file in the `Restaurant-Voice-Agent` directory based on the `.env.example` file:
 ```bash
 cd Coral-Monzo-Agent
@@ -119,7 +123,7 @@ cd Coral-Interface-Agent
 uv run 0-langchain-interface.py
 ```
 
-#### Terminal 2: Start Restaurant Voice Agent
+#### Terminal 2: Start Monzo Agent
 ```bash
 cd Coral-Monzo-Agent
 uv run langchain-monzo-agent.py.
