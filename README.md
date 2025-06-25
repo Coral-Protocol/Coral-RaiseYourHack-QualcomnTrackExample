@@ -1,12 +1,50 @@
-# Restaurant Agentic System Webapp
+# Personal Finance Advisor
 
-This project is a comprehensive restaurant voice agent system that combines [Interface Agent](https://github.com/Coral-Protocol/Coral-Interface-Agent) and [Restaurant Voice Agent](https://github.com/Coral-Protocol/Restaurant-Voice-Agent) to connect via coral protocol to provide an intelligent conversational experience for restaurant interactions. The agents used in this project are part of the [Awesome Agents for Multi-Agent Systems](https://github.com/Coral-Protocol/awesome-agents-for-multi-agent-systems) collection.
-
+This project is a comprehensive personal finance advisor system that combines the [Interface Agent](https://github.com/Coral-Protocol/Coral-Interface-Agent) and [Monzo Agent](https://github.com/Coral-Protocol/Coral-Monzo-Agent) to provide secure, intelligent, and privacy-preserving financial management through natural language interaction. The Monzo Agent enables users to safely access and analyze their Monzo banking data using a local LLM, ensuring sensitive information never leaves their device. By integrating with Monzo’s official API and customized toolkits, the system supports conversational account balance checks, transaction history queries, and personalized financial advice. All agents in this project are part of the [Awesome Agents for Multi-Agent Systems](https://github.com/Coral-Protocol/awesome-agents-for-multi-agent-systems) collection.
 
 
 ## 🚀 Quick Start Guide
 
-### Step 1: Setup Coral Server
+### Step 1: Install and Run Ollama (for Local LLM)
+<details>
+<summary>Click to expand Ollama instructions</summary>
+
+Monzo Agent uses Ollama to run local LLM. Please make sure you have Ollama installed and the desired model downloaded before running the agent.
+
+**1. Install Ollama**
+
+- **Linux/macOS:**
+  Follow the official instructions: [https://ollama.com/download](https://ollama.com/download)
+  Or run:
+  ```bash
+  curl -fsSL https://ollama.com/install.sh | sh
+  ```
+- **Windows:**
+  Download the installer from [Ollama's website](https://ollama.com/download).
+
+**2. Download Local model**
+
+```bash
+ollama pull qwen3:latest
+```
+
+**3. Start Ollama Service**
+
+Ollama usually starts automatically. If not, start it manually:
+```bash
+ollama serve
+```
+
+**4. Verify the model is running**
+
+```bash
+ollama list
+```
+Make sure no errors occur and Ollama is running at `http://localhost:11434`.
+
+</details>
+
+### Step 2: Setup Coral Server
 
 <details>
 <summary>Click to expand setup instructions</summary>
@@ -24,9 +62,9 @@ cd coral-server
 
 </details>
 
-### Step 2: Environment Setup
+### Step 3: Environment Setup
 
-You'll need to set up **three separate terminals** for each component:
+You'll need to set up **two separate terminals** for each component:
 
 <details>
 <summary>Click to see setup instructions for each component</summary>
@@ -37,26 +75,22 @@ cd Coral-Interface-Agent
 uv sync
 ```
 
-#### Terminal 2: Restaurant Voice Agent  
+#### Terminal 2: Monzo Agent  
 ```bash
-cd Restaurant-Voice-Agent
+cd Coral-Monzo-Agent
 uv sync
-```
-
-#### Terminal 3: UI Frontend
-```bash
-cd UI
-npm install
 ```
 
 </details>
 
-### Step 3: Environment Configuration
+### Step 4: Environment Configuration
 
 <details>
 <summary>Click to see configuration instructions</summary>
 
 #### For Coral Interface Agent
+Get the API Key: [OpenAI](https://platform.openai.com/api-keys).
+
 Create a `.env` file in the `Coral-Interface-Agent` directory based on the `.env_sample` file:
 ```bash
 cd Coral-Interface-Agent
@@ -64,36 +98,19 @@ cp -r .env_sample .env
 # Edit .env with your specific configuration
 ```
 
-#### For Restaurant Voice Agent
-Create a `.env` file in the `Restaurant-Voice-Agent` directory based on the `.env.example` file:
+#### For Monzo Agent
+Get the `MONZO_ACCESS_TOKEN` and `MONZO_ACCOUNT_ID`:[Monzo Developer Portal](https://developers.monzo.com/).
+
+Create a `.env` file in the `Coral-Monzo-Agent` directory based on the `.env.example` file:
 ```bash
-cd Restaurant-Voice-Agent  
-cp -r .env.example .env
+cd Coral-Monzo-Agent
+cp -r env_example .env
 # Edit .env with your specific configuration
-```
-
-#### For UI Frontend
-Create a `.env.local` file in the `UI` directory:
-```bash
-cd UI
-
-# Create .env.local with these variables:
-
-# LiveKit Configuration
-LIVEKIT_API_KEY=your_livekit_api_key_here  ([Get LiveKit API Key](https://cloud.livekit.io/))
-LIVEKIT_API_SECRET=your_livekit_api_secret_here  ([Get LiveKit API Secret Key](https://cloud.livekit.io/))
-LIVEKIT_URL=your_livekit_url_here  ([Get LiveKit Url](https://cloud.livekit.io/))
-
-# API Endpoint Configuration (for Interface Agent)
-NEXT_PUBLIC_CONN_DETAILS_ENDPOINT=/api/connection-details
-
-# Interface Agent API Endpoint (default: http://localhost:8000)
-NEXT_PUBLIC_INTERFACE_AGENT_API_ENDPOINT=http://localhost:8000
 ```
 
 </details>
 
-### Step 4: Running the Application
+### Step 5: Running the Application
 
 <details>
 <summary>Click to see running instructions</summary>
@@ -106,32 +123,52 @@ cd Coral-Interface-Agent
 uv run 0-langchain-interface.py
 ```
 
-#### Terminal 2: Start Restaurant Voice Agent
+#### Terminal 2: Start Monzo Agent
 ```bash
-cd Restaurant-Voice-Agent
-uv run main.py dev
-```
-
-#### Terminal 3: Start UI Frontend
-```bash
-cd UI
-npm run dev
+cd Coral-Monzo-Agent
+uv run langchain-monzo-agent.py.
 ```
 
 </details>
 
-## 🎯 Usage
+## Example
 
 <details>
-<summary>Click to see usage instructions</summary>
+<summary>Click to see example</summary>
 
-1. **Access the Application**: Open your browser and navigate to the UI application (typically `http://localhost:3000`)
+```bash
+# Input:
+Question: Help me check my transections of monzo for the last 2 months and give me some personal finance advice.
 
-2. **Try Now Button**: Click the "Try Now" button to be directed to the main page
+# Output:
+Answer: Here is a summary of your Monzo transactions for the past 2 months:
+- May 1: -£22.00 (University, bills)
+- May 14: -£120.00 (Person A, general)
+- May 14: -£20.81 (Mobile Provider, bills)
+- May 18: -£16.00 (Person A, general)
+- May 19: +£9.00 (Person B, income)
+- June 2: -£22.00 (University, bills)
+- June 6: +£6.66 (From Person C, income)
+- June 12: -£20.81 (Mobile Provider, bills)
+- June 17: +£100.00 (From Person C, income)
 
-3. **Start Conversation**: On the main page, press the "Start Conversation" button for the restaurant agent
+Notable spending patterns:
+- Regular bills to University and Mobile Provider.
+- Significant general spending to "Person A."
+- Income from Person B and Person C.
 
-4. **Interact**: You can now chat with the agentic system for restaurant-related queries and interactions
+Personalized financial advice:
+1. **Track Recurring Bills:** Your regular payments to University and Mobile Provider are predictable. Consider setting up automated budgeting for these to ensure you always have funds allocated.
+2. **Review Large Expenses:** The £120 payment to "Person A" stands out. Review such large transactions to ensure they are necessary and look for ways to reduce or avoid them if possible.
+3. **Increase Savings:** Try to set aside a portion of your income (even small amounts) right after you receive it. Automating savings can help build a financial cushion.
+4. **Monitor Cash Flow:** Your income is irregular. Consider ways to stabilize your income or reduce discretionary spending during lower-income months.
+5. **Analyze General Spending:** Categorize your general expenses to identify areas where you can cut back.
+
+Would you like more detailed budgeting tips or help setting up a savings plan?
+
+Is there anything else I can help you with?
+```
+
 
 </details>
 
@@ -143,20 +180,9 @@ npm run dev
 
 For more detailed information about the individual components:
 
-- **Restaurant Voice Agent**: [https://github.com/Coral-Protocol/Restaurant-Voice-Agent](https://github.com/Coral-Protocol/Restaurant-Voice-Agent)
-- **Voice Interface Agent**: [https://github.com/Coral-Protocol/Voice-Interface-Agent](https://github.com/Coral-Protocol/Voice-Interface-Agent)
+- **Interface Agent**: [https://github.com/Coral-Protocol/Coral-Interface-Agent](https://github.com/Coral-Protocol/Coral-Interface-Agent)
+- **Monzo Agent**: [https://github.com/Coral-Protocol/Coral-Monzo-Agent](https://github.com/Coral-Protocol/Coral-Monzo-Agent)
 - **Coral Server**: [https://github.com/Coral-Protocol/coral-server](https://github.com/Coral-Protocol/coral-server)
 - **Awesome Agents Collection for Multi-Agent-System**: [https://github.com/Coral-Protocol/awesome-agents-for-multi-agent-systems](https://github.com/Coral-Protocol/awesome-agents-for-multi-agent-systems)
 
 </details>
-
-## 📋 Prerequisites
-
-Before setting up this project, ensure you have the following installed:
-
-- **Python 3.8+** with `uv` package manager
-- **Node.js 18+** with npm
-- **Git** for cloning repositories
-
-## Check the Demo video:
-[Demo](https://drive.google.com/file/d/1LtUfTUzV9MPEPY7b4alElDiJoml7E089/view)
