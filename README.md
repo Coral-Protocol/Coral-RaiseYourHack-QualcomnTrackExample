@@ -126,7 +126,7 @@ uv run 0-langchain-interface.py
 #### Terminal 2: Start Monzo Agent
 ```bash
 cd Coral-Monzo-Agent
-uv run langchain-monzo-agent.py.
+uv run langchain-monzo-agent.py
 ```
 
 </details>
