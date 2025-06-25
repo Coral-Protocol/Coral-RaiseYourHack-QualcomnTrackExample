@@ -9,9 +9,7 @@ from langchain_core.tools import tool
 from dotenv import load_dotenv
 from anyio import ClosedResourceError
 import urllib.parse
-from langchain_openai import ChatOpenAI
 from langchain_ollama import ChatOllama
-from langchain_groq import ChatGroq
 import requests
 from datetime import datetime
 
@@ -22,19 +20,17 @@ logger = logging.getLogger(__name__)
 # Load environment variables
 load_dotenv()
 
-base_url = "http://localhost:5555/devmode/exampleApplication/privkey/session1/sse"
+base_url = os.getenv("CORAL_SSE_URL")
+agentID = os.getenv("CORAL_AGENT_ID")
+
 params = {
-    "waitForAgents": 1,
-    "agentId": "monzo_agent",
+    #"waitForAgents": 1,
+    "agentId": agentID,
     "agentDescription": """An agent responsible for answering banking-related questions based on the user's Monzo account. 
     You must only use the provided tools to fulfill user requests."""
 }
 query_string = urllib.parse.urlencode(params)
 MCP_SERVER_URL = f"{base_url}?{query_string}"
-
-# Validate API keys
-if not os.getenv("OPENAI_API_KEY"):
-    raise ValueError("OPENAI_API_KEY is not set in environment variables.")
 
 def get_tools_description(tools):
     return "\n".join(f"Tool: {t.name}, Schema: {json.dumps(t.args).replace('{', '{{').replace('}', '}}')}" for t in tools)
@@ -178,18 +174,6 @@ async def create_monzo_agent(client, tools):
         base_url="http://localhost:11434",  # default Ollama port
         temperature=0.7,
     )
-
-    '''model = ChatGroq(
-        model="llama-3.3-70b-versatile",
-        temperature=0.3
-    )'''
-
-    '''model = ChatOpenAI(
-        model="gpt-4.1-2025-04-14",
-        api_key=os.getenv("OPENAI_API_KEY"),
-        temperature=0.3,
-        max_tokens=32768
-    )'''
 
     agent = create_tool_calling_agent(model, tools, prompt)
     return AgentExecutor(agent=agent, tools=tools, verbose=True)
