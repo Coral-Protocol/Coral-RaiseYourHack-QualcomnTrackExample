@@ -1,5 +1,5 @@
 ## [Interface Agent](https://github.com/Coral-Protocol/Coral-Interface-Agent)
-
+ 
 User Interaction Agent is the main interface for receiving user instructions, coordinating multi-agent tasks, and logging conversations via the terminal.
 
 ## Responsibility
@@ -10,10 +10,10 @@ User Interaction Agent acts as the main interface for coordinating user instruct
 - **Tools used**: Coral MCP Tools, ask_human Tool (human-in-the-loop)
 - **AI model**: GPT-4.1
 - **Date added**: June 4, 2025
-- **License**: MIT 
+- **License**: MIT
 
 
-## Use the Agent  
+## Use the Agent in Dev Mode
 
 ### 1. Clone & Install Dependencies
 

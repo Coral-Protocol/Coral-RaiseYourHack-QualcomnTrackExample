@@ -17,12 +17,15 @@ logger = logging.getLogger(__name__)
 
 load_dotenv()
 
-base_url = "http://localhost:5555/devmode/exampleApplication/privkey/session1/sse"
+base_url = os.getenv("CORAL_SSE_URL")
+agentID = os.getenv("CORAL_AGENT_ID")
+
 params = {
     # "waitForAgents": 1,
-    "agentId": "user_interaction_agent",
-    "agentDescription": "You are user_interaction_agent, handling user instructions and coordinating testing tasks across agents"
+    "agentId": agentID,
+    "agentDescription": "An agent that takes the user's input and interacts with other agents to fulfill the request",
 }
+
 query_string = urllib.parse.urlencode(params)
 MCP_SERVER_URL = f"{base_url}?{query_string}"
 AGENT_NAME = "user_interaction_agent"
@@ -35,34 +38,44 @@ def get_tools_description(tools):
 
 async def ask_human_tool(question: str) -> str:
     print(f"Agent asks: {question}")
-    return input("Your response: ")
-
+    runtime = os.getenv("CORAL_ORCHESTRATION_RUNTIME", "devmode")
+    
+    if runtime == "docker":
+        load_dotenv(override=True)
+        response = os.getenv("HUMAN_RESPONSE")
+        if response is None:
+            logger.error("No HUMAN_RESPONSE coming from Coral Server Orchestrator")
+    else:
+        response = input("Your response: ")
+    
+    return response
+    
 async def create_interface_agent(client, tools):
     tools_description = get_tools_description(tools)
     
     prompt = ChatPromptTemplate.from_messages([
         (
             "system",
-            f"""You are an agent interacting with the tools from Coral Server and using your own `ask_human` tool to communicate with the user.
+            f"""You are an agent interacting with the tools from Coral Server and using your own `ask_human` tool to communicate with the user,**You MUST NEVER finish the chain**
 
             Follow these steps in order:
 
             1. Use `list_agents` to list all connected agents and get their descriptions.
             2. Use `ask_human` to ask: "How can I assist you today?" and wait for the response.
-            3. Take 2 seconds to understand the user's intent and decide which agent(s) are needed based on their descriptions.
+            3. Understand the user's intent and decide which agent(s) are needed based on their descriptions.
             4. If the user requests Coral Server information (e.g., agent status, connection info), use your tools to retrieve and return the information directly to the user, then go back to Step 1.
-            5. If fulfilling the request requires multiple agents, determine the sequence and logic for calling them.
+            5. If fulfilling the request requires multiple agents, then call
+            `create_thread ('threadName': , 'participantIds': [ID of all required agents, including yourself])` to create conversation thread.
             6. For each selected agent:
-            * **If a conversation thread with the agent does not exist, use `create_thread` to create one.**
+            * **If the required agent does not in the thread, add it by calling `add_participant(threadId=..., 'participantIds': ID of the agent to add)`.**
             * Construct a clear instruction message for the agent.
-            * Use **`send_message(senderId=..., mentions=[Receive Agent Id], threadId=..., content="instruction")`.**
-            * Use `wait_for_mentions(timeoutMs=60000)` to receive the agent's response, 
-              if there is no meesage receive during the first time, check if you mention the receiver ID when you use `send_message(senderId=..., mentions=[Receive Agent Id], threadId=..., content="instruction")`,
-              otherwise, recall `wait_for_mentions(timeoutMs=60000)` up to 5 times if no message received.
+            * Use **`send_message(threadId=..., content="instruction", mentions=[Receive Agent Id])`.** (NEVER leave `mentions` as empty)
+            * Use `wait_for_mentions(timeoutMs=60000)` to receive the agent's response up to 5 times if no message received.
             * Record and store the response for final presentation.
             7. After all required agents have responded, show the complete conversation (all thread messages) to the user.
-            8. Wait for 3 seconds, then use `ask_human` to ask: "Is there anything else I can help you with?"
-            9. If the user replies with a new request, repeat the process from Step 1.
+            8. Call `ask_human` to ask: "Is there anything else I can help you with?"
+            9. Repeat the process from Step 1.
+            
             - Use only tools: {tools_description}"""),
         ("placeholder", "{agent_scratchpad}")
     ])
@@ -80,7 +93,7 @@ async def create_interface_agent(client, tools):
     )'''
 
     agent = create_tool_calling_agent(model, tools, prompt)
-    return AgentExecutor(agent=agent, tools=tools, max_iterations=100 ,verbose=True, stream_runnable=False)
+    return AgentExecutor(agent=agent, tools=tools, max_iterations=None ,verbose=True, stream_runnable=False)
 
 async def main():
     max_retries = 5
@@ -113,14 +126,14 @@ async def main():
             )
             logger.info(f"Tools Description:\n{get_tools_description(tools)}")
 
-            with get_openai_callback() as cb:
-                agent_executor = await create_interface_agent(client, tools)
-                await agent_executor.ainvoke({})
-                logger.info("Token usage:")
-                logger.info(f"  Prompt Tokens: {cb.prompt_tokens}")
-                logger.info(f"  Completion Tokens: {cb.completion_tokens}")
-                logger.info(f"  Total Tokens: {cb.total_tokens}")
-                logger.info(f"  Total Cost (USD): ${cb.total_cost:.6f}")
+            # with get_openai_callback() as cb:
+            agent_executor = await create_interface_agent(client, tools)
+            await agent_executor.ainvoke({})
+                # logger.info("Token usage:")
+                # logger.info(f"  Prompt Tokens: {cb.prompt_tokens}")
+                # logger.info(f"  Completion Tokens: {cb.completion_tokens}")
+                # logger.info(f"  Total Tokens: {cb.total_tokens}")
+                # logger.info(f"  Total Cost (USD): ${cb.total_cost:.6f}")
 
 
         except ClosedResourceError as e:
