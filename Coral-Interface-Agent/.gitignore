@@ -1,2 +1,4 @@
 *.env
 *.venv
+*.temp
+venv_creation.log

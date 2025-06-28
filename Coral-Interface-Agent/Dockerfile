@@ -15,4 +15,4 @@ RUN uv sync --no-dev
 
 EXPOSE 5555
 
-CMD ["uv", "run", "python", "0-langchain-interface.py"]
+CMD ["uv", "run", "python", "main.py"]
