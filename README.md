@@ -139,13 +139,7 @@ yarn -v
 
 - Checkout: [How to Build a Multi-Agent System with Awesome Open Source Agents using Coral Protocol](https://github.com/Coral-Protocol/existing-agent-sessions-tutorial-private-temp).  
 
-- Update the file: `coral-server/src/main/resources/application.yaml` with the details below. You can use WinSCP to make change in the file by copying the below command.
-
-![Vultr Instance](images/application-changes.png)  
-
-<details>
-
-<summary>Expand this to update `application.yaml` with this code</summary>
+- Update the file: `coral-server/src/main/resources/application.yaml` with the details below. 
 
 ```bash
 # replace "root" with YOUR/PROJECT/DIRECTORY if different
@@ -207,8 +201,6 @@ registry:
         - name: "MONZO_ACCOUNT_ID"
           from: "MONZO_ACCOUNT_ID"
 ```
-
-</details>
 
 - Run the [Coral Server](https://github.com/Coral-Protocol/coral-server) and [Coral Studio](https://github.com/Coral-Protocol/coral-studio). 
 
