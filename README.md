@@ -51,7 +51,7 @@ The hardware will be shipped on June 30th with next-day delivery.
 ### Coral Example Usage: Personal Finance Advisor
 
 - Personal finance advisor system that  to provides secure, intelligent, and privacy-preserving financial management through natural language interaction using Coral Monzo Agent.
-- The Monzo Agent enables users to safely access and analyze their Monzo banking data using local LLM/LLM provided by groq, ensuring sensitive information never leaves their device. By integrating with Monzo’s official API and customized toolkits, the system supports conversational account balance checks, transaction history queries, and personalized financial advice.
+- The Monzo Agent enables users to safely access and analyze their Monzo banking data using a local LLM/LLM provided by Groq, ensuring sensitive information never leaves their device. By integrating with Monzo’s official API and customized toolkits, the system supports conversational account balance checks, transaction history queries, and personalized financial advice.
 - Agents: [Interface Agent](https://github.com/Coral-Protocol/Coral-Interface-Agent) | [Monzo Agent](https://github.com/Coral-Protocol/Coral-Monzo-Agent)
 - [Demo Video](https://drive.google.com/file/d/1xiKFWXli_njZtACDtBdyO-7dWPPdUztt/view?usp=sharing)
 
