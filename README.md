@@ -62,7 +62,7 @@ The hardware will be shipped on June 30th with next-day delivery.
 
 <details>
 
-- After you are logged into Vultr from your terminal, it is time to setup the [Coral Server](https://github.com/Coral-Protocol/coral-server) and [Coral Studio UI](https://github.com/Coral-Protocol/coral-studio). Follow the steps given in repository to install.
+- To setup the [Coral Server](https://github.com/Coral-Protocol/coral-server) and [Coral Studio UI](https://github.com/Coral-Protocol/coral-studio), follow the steps given in repository to install.
 
 - In order to test if both are working, open the same instance in two terminals and run both simultaneously.
 
