@@ -66,15 +66,9 @@ The hardware will be shipped on June 30th with next-day delivery.
 
 - In order to test if both are working, open the same instance in two terminals and run both simultaneously.
 
-- Ensure the server’s firewall allows incoming connections on port 5173 (or the port Studio is using). You may need to open this port using a command like
-
 ```bash
-
-# allow external port access
-sudo ufw allow 5173
-
-# run studio using --host
-yarn dev --host
+# run studio
+yarn dev
 ```
 - You will see both running like this simultaneously if succesful and should be able to access Coral Studio from your browser.
 
@@ -86,7 +80,37 @@ yarn dev --host
 
 <details>
 
-<summary>Install yarn if UNAVAILABLE in order to run Coral Studio</summary>
+<summary>Install Java if UNAVAILABLE in order to run Coral Server</summary>
+
+Install Java
+
+```bash
+
+# Apt update
+sudo apt update
+
+# Install the JDK
+sudo apt install openjdk-17-jdk
+
+# Check version
+java -version
+```
+
+Run Coral Server
+
+```bash
+
+./gradlew run
+
+```
+
+</details>
+
+<details>
+
+<summary>Install Yarn if UNAVAILABLE in order to run Coral Studio</summary>
+
+Install Yarn
 
 ```bash
 # Download and install nvm:
@@ -107,7 +131,23 @@ corepack enable yarn
 
 # Verify Yarn version:
 yarn -v
+
+# Install from yarn
+yarn install
+
+# Allow port for eternal access
+sudo ufw allow 5173
+
 ```
+
+Run Coral Studio
+
+```bash
+
+yarn dev
+
+```
+
 </details>
 
 </details>
