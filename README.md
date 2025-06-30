@@ -121,7 +121,6 @@ yarn -v
 - Please click on the link and set up the agents by following the setup instructions in the repository.  
 - Check the output below to see how the terminal will look after succesfull installation, keep in mind the directory you are at while doing `uv sync`.
 
-![Vultr Instance Terminal After Agent Setup](images/vultr-instance-terminal.png)
 
 </details>
 
