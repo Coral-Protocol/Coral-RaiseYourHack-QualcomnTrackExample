@@ -186,7 +186,7 @@ registry:
         description: "MONZO_ACCOUNT_ID"
     runtime:
       type: "executable"
-      command: ["bash", "-c", "/root/Coral-Monzo-Agent/run_agent.sh langchain-monzo-agent.py"]
+      command: ["bash", "-c", "/root/Coral-Monzo-Agent/run_agent.sh main.py"]
       
       environment:
         - name: "API_KEY"
@@ -238,7 +238,7 @@ Run the Pandas Agent
 cd Coral-Monzo-Agent
 
 # Run the agent using `uv`:
-uv run python langchain-monzo-agent.py
+uv run python main.py
 ```
 
 </details>
