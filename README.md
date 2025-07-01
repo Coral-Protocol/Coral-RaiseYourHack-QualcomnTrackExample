@@ -271,7 +271,7 @@ cd Coral-Interface-Agent
 uv run python main.py
 ```
 
-Run the Pandas Agent
+Run the Monzo Agent
 
 ```bash
 # cd to directory
