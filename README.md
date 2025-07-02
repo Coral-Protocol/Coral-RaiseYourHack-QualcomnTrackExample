@@ -294,7 +294,7 @@ Would you like more detailed budgeting tips or help setting up a savings plan?
 Is there anything else I can help you with?
 ```
 
-![Qualcomn Instance](images/example.png)  
+![Qualcomn Instance](images/Monzo_agent_new.png)  
 
 </details>
 
