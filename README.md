@@ -10,6 +10,8 @@ This guide helps you build an AI-driven utility app for everyday users—right a
 - Agents: [Interface Agent](https://github.com/Coral-Protocol/Coral-Interface-Agent) | [Monzo Agent](https://github.com/Coral-Protocol/Coral-Monzo-Agent)
 - [Demo Video](https://drive.google.com/file/d/1carCDjr-sZbTs5OOmzwSPsLItCwbnW0Y/view?usp=sharing)
 
+![Qualcomn Instance](images/Monzo_agent_new.png)  
+
 ### Outline
 
 - **Setup Coral Server and Coral Studio**  
@@ -293,8 +295,6 @@ Would you like more detailed budgeting tips or help setting up a savings plan?
 
 Is there anything else I can help you with?
 ```
-
-![Qualcomn Instance](images/Monzo_agent_new.png)  
 
 </details>
 
