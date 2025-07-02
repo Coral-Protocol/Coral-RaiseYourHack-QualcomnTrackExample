@@ -8,7 +8,7 @@ This guide helps you build an AI-driven utility app for everyday users—right a
 
 - The example of Coral Protocol solution is a Personal finance advisor system that provides secure, intelligent, and privacy-preserving financial management through natural language. The Personal finance advisor enables users to safely access and analyze their Monzo banking data using a local LLM/LLM provided by Groq, ensuring sensitive information never leaves their device. By integrating with Monzo’s official API and customized toolkits, the system supports conversational account balance checks, transaction history queries, and personalized financial advice.
 - Agents: [Interface Agent](https://github.com/Coral-Protocol/Coral-Interface-Agent) | [Monzo Agent](https://github.com/Coral-Protocol/Coral-Monzo-Agent)
-- [Demo Video](https://drive.google.com/file/d/1carCDjr-sZbTs5OOmzwSPsLItCwbnW0Y/view?usp=sharing)
+- [Demo Video](https://screen.studio/share/hbhDOITn)
 
 ![Qualcomn Instance](images/Monzo_agent_new.png)  
 
